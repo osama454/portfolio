@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Osama Adel El-Nahas | Lead LLM Engineer</title>
+    <!-- Font Awesome 6 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: #f0f2f5;
+        color: #1a1a1a;
+        line-height: 1.5;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 1400px; /* Added max-width */
+        width: 100%;
+        margin: 0 auto; /* Changed from margin-left: 450px */
+        display: grid;
+        grid-template-columns: 350px 1fr; /* Increased sidebar width slightly */
+        gap: 1.5rem;
+        padding: 2rem 0rem; /* Increased horizontal padding */
+        
+      }
+
+      /* Professional Color Scheme */
+      :root {
+        --primary: #0a66c2;
+        --primary-dark: #004182;
+        --secondary: #6c757d;
+        --success: #198754;
+        --bg-dark: #1e293b;
+        --bg-card: #ffffff;
+        --text-primary: #0a1929;
+        --text-secondary: #4a5568;
+        --border: #e9ecef;
+        --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      }
+
+      .sidebar {
+        background: var(--bg-card);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        width: 100%; /* Changed from fixed 400px */
+        height: calc(100vh - 2rem); /* Better height calculation */
+        position: sticky; /* Changed from fixed */
+        top: 2rem;
+        left: auto; /* Removed left positioning */
+        overflow-y: auto;
+        padding: 0;
+        z-index: 10;
+        align-self: flex-start;
+      }
+      .profile-header {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-dark) 100%
+        );
+        padding: 2rem 1.5rem;
+        text-align: center;
+        color: white;
+      }
+
+      .profile-image {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        margin: 0 auto 1.2rem;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .profile-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .profile-header h1 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 0.3rem;
+        letter-spacing: -0.5px;
+      }
+
+      .profile-header .title {
+        font-size: 0.95rem;
+        opacity: 0.9;
+        font-weight: 400;
+      }
+
+      .profile-body {
+        padding: 1.5rem;
+      }
+
+      .info-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.8rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .info-item:last-child {
+        border-bottom: none;
+      }
+
+      .info-icon {
+        width: 36px;
+        height: 36px;
+        background: #e8f0fe;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-size: 1.1rem;
+      }
+
+      .info-content {
+        flex: 1;
+      }
+
+      .info-label {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .info-value {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--text-primary);
+      }
+
+      .info-value a {
+        color: var(--text-primary);
+        text-decoration: none;
+      }
+
+      .info-value a:hover {
+        color: var(--primary);
+      }
+
+      .download-btn {
+        display: block;
+        background: var(--primary);
+        color: white;
+        text-align: center;
+        padding: 1rem;
+        margin: 1.5rem 0 0;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+
+      .download-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(10, 102, 194, 0.3);
+      }
+
+      /* Main Content Area */
+      .main-content {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .section-card {
+        background: var(--bg-card);
+        border-radius: 24px;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+      }
+
+      .section-title {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-bottom: 1.8rem;
+      }
+
+      .section-title i {
+        font-size: 1.5rem;
+        color: var(--primary);
+        background: #e8f0fe;
+        padding: 0.8rem;
+        border-radius: 14px;
+      }
+
+      .section-title h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      /* Experience Cards */
+      .exp-item {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .exp-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+
+      .exp-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+      }
+
+      .exp-title h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.2rem;
+      }
+
+      .exp-company {
+        color: var(--primary);
+        font-weight: 500;
+        font-size: 0.95rem;
+      }
+
+      .exp-date {
+        background: #f0f2f5;
+        padding: 0.4rem 1rem;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+      }
+
+      .exp-desc {
+        list-style: none;
+      }
+
+      .exp-desc li {
+        margin-bottom: 0.6rem;
+        padding-left: 1.5rem;
+        position: relative;
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+      }
+
+      .exp-desc li::before {
+        content: "→";
+        color: var(--primary);
+        position: absolute;
+        left: 0;
+        font-weight: 600;
+      }
+
+      /* Projects Grid - 2 Columns */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin-top: 0.5rem;
+      }
+
+      .project-card {
+        background: #f8fafc;
+        border-radius: 18px;
+        padding: 1.5rem;
+        transition: all 0.3s;
+        border: 1px solid var(--border);
+      }
+
+      .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        border-color: var(--primary);
+      }
+
+      .project-icon {
+        width: 48px;
+        height: 48px;
+        background: var(--primary);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .project-card h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 0.8rem;
+        color: var(--text-primary);
+      }
+
+      .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 1rem 0;
+      }
+
+      .tech-tag {
+        background: white;
+        padding: 0.2rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+      }
+
+      .project-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        color: var(--primary);
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        margin-top: 0.8rem;
+      }
+
+      .project-link:hover {
+        gap: 0.8rem;
+      }
+
+      /* Skills Section */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+      }
+
+      .skill-cat h4 {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.8rem;
+      }
+
+      .skill-items {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .skill-item {
+        background: #e8f0fe;
+        color: var(--primary);
+        padding: 0.4rem 1rem;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+
+      .skill-item:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      /* Education Row */
+      .edu-row {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .edu-main {
+        flex: 2;
+      }
+
+      .edu-main h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .edu-main p {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+      }
+
+      .edu-stats {
+        flex: 1;
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .stat {
+        text-align: center;
+      }
+
+      .stat .number {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--primary);
+        line-height: 1.2;
+      }
+
+      .stat .label {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+      }
+
+      /* Additional Info */
+      .additional-row {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .badge {
+        background: #e8f0fe;
+        color: var(--primary);
+        padding: 0.6rem 1.5rem;
+        border-radius: 40px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .badge i {
+        font-size: 1rem;
+      }
+
+      hr {
+        border: none;
+        border-top: 2px solid var(--border);
+        margin: 1rem 0;
+      }
+
+      @media (max-width: 1200px) {
+        .container {
+          grid-template-columns: 300px 1fr;
+          padding: 0 1rem;
+        }
+      }
+
+      @media (max-width: 968px) {
+        .container {
+          grid-template-columns: 1fr;
+          margin: 1rem auto;
+          padding: 0 1rem;
+        }
+
+        .sidebar {
+          position: relative;
+          width: 100%;
+          height: auto;
+          top: auto;
+          margin-bottom: 1.5rem;
+          overflow: visible;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .skills-grid {
+          grid-template-columns: 1fr !important;
+          gap: 1.5rem;
+        }
+
+        .projects-grid {
+          grid-template-columns: 1fr !important;
+        }
+
+        .edu-row {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+
+        .additional-row {
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- ========== LEFT SIDEBAR ========== -->
+      <aside class="sidebar">
+        <div class="profile-header">
+          <div class="profile-image">
+            <!-- صورة شخصية - ضعي رابط الصورة هنا -->
+            <img src="./my_image.jpg" alt="Osama Adel" />
+          </div>
+          <h1>Osama Adel El-Nahas</h1>
+          <div class="title">Lead LLM Engineer @ Turing</div>
+        </div>
+
+        <div class="profile-body">
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="info-content">
+              <div class="info-label">Location</div>
+              <div class="info-value">6th of October City, Egypt</div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+            <div class="info-content">
+              <div class="info-label">Phone</div>
+              <div class="info-value">+20-1092532349</div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-envelope"></i></div>
+            <div class="info-content">
+              <div class="info-label">Email</div>
+              <div class="info-value">
+                <a href="mailto:osama.adel7358@gmail.com" target="_blank"
+                  >osama.adel7358</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon"><i class="fab fa-github"></i></div>
+            <div class="info-content">
+              <div class="info-label">GitHub</div>
+              <div class="info-value">
+                <a href="https://github.com/osama454" target="_blank"
+                  >@osama454</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon"><i class="fab fa-linkedin-in"></i></div>
+            <div class="info-content">
+              <div class="info-label">LinkedIn</div>
+              <div class="info-value">
+                <a
+                  href="https://www.linkedin.com/in/osama-el-nahas-aa2a051b0/"
+                  target="_blank"
+                  >osama-el-nahas</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <a
+            href="./Osama_Adel_Full_Stack_Engineer.pdf"
+            class="download-btn"
+            target="_blank"
+          >
+            <i class="fas fa-download" style="margin-right: 8px"></i> Download
+            CV (PDF)
+          </a>
+        </div>
+      </aside>
+
+      <!-- ========== MAIN CONTENT ========== -->
+      <main class="main-content">
+        <!-- Summary Section -->
+        <section class="section-card">
+          <div class="section-title">
+            <i class="fas fa-user"></i>
+            <h2>Professional Summary</h2>
+          </div>
+          <p
+            style="
+              color: var(--text-secondary);
+              font-size: 1rem;
+              line-height: 1.7;
+            "
+          >
+            Electronics and Communication Engineer with 3+ years of experience
+            in AI training and software development. Specialized in training
+            Large Language Models through RLHF, with a strong background in
+            full-stack development, game development, and embedded systems.
+            Proven track record of delivering production-grade solutions and
+            optimizing complex systems.
+          </p>
+        </section>
+
+        <!-- Experience Section -->
+        <section class="section-card">
+          <div class="section-title">
+            <i class="fas fa-briefcase"></i>
+            <h2>Work Experience</h2>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-header">
+              <div class="exp-title">
+                <h3>LLM Trainer (Reinforcement Learning)</h3>
+                <div class="exp-company">Turing · Remote</div>
+              </div>
+              <div class="exp-date">Jan 2023 - Present</div>
+            </div>
+            <ul class="exp-desc">
+              <li>
+                Train Large Language Models on complex programming tasks using
+                Reinforcement Learning from Human Feedback (RLHF), improving
+                model accuracy by 23%.
+              </li>
+              <li>
+                Produce high-quality, optimized reference implementations across
+                Python, C++, and Java for model training datasets.
+              </li>
+              <li>
+                Evaluate model outputs for correctness, performance scalability,
+                and edge-case robustness, ensuring production-ready quality.
+              </li>
+              <li>
+                Collaborate with research teams to implement cutting-edge NLP
+                techniques and training methodologies.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Projects Section - 2 Columns -->
+        <section class="section-card">
+          <div class="section-title">
+            <i class="fas fa-code"></i>
+            <h2>Featured Projects</h2>
+          </div>
+
+          <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card">
+              <div class="project-icon">
+                <i class="fas fa-file-invoice"></i>
+              </div>
+              <h3>ETA Tax Invoices</h3>
+              <p
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  margin-bottom: 0.8rem;
+                "
+              >
+                Chrome extension automating Egyptian tax portal workflows.
+              </p>
+              <div class="project-tech">
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">DOM</span>
+                <span class="tech-tag">Excel</span>
+              </div>
+              <a
+                href="https://chromewebstore.google.com/detail/eta-tax-invoices/jdfmgihbgclijhkflgfjldecdmnkacid"
+                target="_blank"
+                class="project-link"
+              >
+                View on Chrome Web Store <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+              <div class="project-icon"><i class="fas fa-gamepad"></i></div>
+              <h3>Multiplayer FPS Game</h3>
+              <p
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  margin-bottom: 0.8rem;
+                "
+              >
+                Online shooter with Unity, Firebase, and P2P networking.
+              </p>
+              <div class="project-tech">
+                <span class="tech-tag">Unity</span>
+                <span class="tech-tag">C#</span>
+                <span class="tech-tag">Firebase</span>
+                <span class="tech-tag">UDP</span>
+              </div>
+              <a
+                href="https://lifestrike.web.app/"
+                class="project-link"
+                target="_blank"
+              >
+                Game Website <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+              <div class="project-icon"><i class="fas fa-chess"></i></div>
+              <h3>Chess Analyzer</h3>
+              <p
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  margin-bottom: 0.8rem;
+                "
+              >
+                Advanced chess analysis with Chess960 & ELO computation.
+              </p>
+              <div class="project-tech">
+                <span class="tech-tag">Java</span>
+                <span class="tech-tag">DroidFish</span>
+                <span class="tech-tag">UCI</span>
+              </div>
+              <!-- <a href="#" class="project-link" target="_blank">
+                            Source Code <i class="fas fa-arrow-right"></i>
+                        </a> -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Skills & Education Combined -->
+        <section class="section-card">
+          <div class="section-title">
+            <i class="fas fa-cog"></i>
+            <h2>Technical Expertise</h2>
+          </div>
+
+          <div class="skills-grid">
+            <div class="skill-cat">
+              <h4>Languages</h4>
+              <div class="skill-items">
+                <span class="skill-item">C</span>
+                <span class="skill-item">C++</span>
+                <span class="skill-item">C#</span>
+                <span class="skill-item">Java</span>
+                <span class="skill-item">Python</span>
+                <span class="skill-item">JS</span>
+                <span class="skill-item">SQL</span>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <h4>Frameworks</h4>
+              <div class="skill-items">
+                <span class="skill-item">Unity</span>
+                <span class="skill-item">React</span>
+                <span class="skill-item">ASP.NET</span>
+                <span class="skill-item">Django</span>
+                <span class="skill-item">Flask</span>
+                <span class="skill-item">Express</span>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <h4>AI & Core</h4>
+              <div class="skill-items">
+                <span class="skill-item">ML/DL</span>
+                <span class="skill-item">NLP</span>
+                <span class="skill-item">RLHF</span>
+                <span class="skill-item">OOP</span>
+                <span class="skill-item">Design Patterns</span>
+                <span class="skill-item">RTOS</span>
+              </div>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="edu-row">
+            <div class="edu-main">
+              <h3>Cairo University - Faculty of Engineering</h3>
+              <p>B.Sc. Electronics and Electrical Communication Engineering</p>
+              <p
+                style="
+                  font-size: 0.9rem;
+                  color: var(--primary);
+                  font-weight: 500;
+                "
+              >
+                Very Good with Honor (82.6%) · 2017-2021
+              </p>
+            </div>
+            <div class="edu-stats">
+              <div class="stat">
+                <div class="number">3+</div>
+                <div class="label">Years Exp</div>
+              </div>
+              <div class="stat">
+                <div class="number">4</div>
+                <div class="label">Projects</div>
+              </div>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="additional-row">
+            <div class="badge">
+              <i class="fas fa-shield-alt"></i> Military Service: Completed
+            </div>
+            <div class="badge">
+              <i class="fas fa-language"></i> Fluent English (C1)
+            </div>
+            <div class="badge">
+              <i class="fas fa-trophy"></i> Top Performer @ Turing
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
